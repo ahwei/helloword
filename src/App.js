@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
-import CustomInputNumber from "./components/CustomInputNumber";
+// import CustomInputNumber from "./components/CustomInputNumber";
 import RoomItem from "./components/Room/RoomItem";
 import { Container } from "./components/ui_kit";
 
@@ -17,7 +17,16 @@ const App = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <CustomInputNumber
+        <div style={{ width: 400 }}>
+          <RoomItem
+            adult={1}
+            child={0}
+            onChange={(value) => {
+              console.log(value);
+            }}
+          />
+        </div>
+        {/* <CustomInputNumber
           min={1}
           max={10}
           step={1}
@@ -30,8 +39,7 @@ const App = (props) => {
           onBlur={(Event) => {
             console.log("onBlur", Event.target.name);
           }}
-        />
-        <RoomItem adult={1} child={0} />
+        /> */}
       </Container>
     </ThemeProvider>
   );

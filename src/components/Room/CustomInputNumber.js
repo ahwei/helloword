@@ -54,8 +54,8 @@ const CustomInputNumber = ({
     setValue(value);
   }, [value]);
 
-  const addLongPress = useLongPress(onAdd, 100);
-  const minusLongPress = useLongPress(onMinus, 100);
+  const addLongPress = useLongPress(onAdd, 200);
+  const minusLongPress = useLongPress(onMinus, 200);
 
   return (
     <Box alignItems="center" justifyContent="center">

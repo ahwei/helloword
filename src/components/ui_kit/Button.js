@@ -20,6 +20,10 @@ const Button = styled.button`
   :focus {
     box-shadow: rgb(30 159 210 / 48%) 0px 0px 0px 2px;
   }
+  :hover {
+    background-color: ${(props) =>
+      props.disabled ? "transparent" : "#f0fdff"};
+  }
 `;
 
 export default Button;

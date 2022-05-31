@@ -11,8 +11,8 @@ const Input = styled.input`
   text-align: center;
   font-size: 16px;
   :disabled {
-    border: 1px solid #fefefe;
-    color: 1px solid #fefefe;
+    border: 1px solid #dedede;
+    color: 1px solid #dedede;
   }
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
