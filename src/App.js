@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
 // import CustomInputNumber from "./components/CustomInputNumber";
-import RoomItem from "./components/Room/RoomItem";
+import RoomAllocation from "./components/Room/RoomAllocation";
 import { Container } from "./components/ui_kit";
 
 const theme = {
@@ -17,13 +17,18 @@ const App = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <div style={{ width: 400 }}>
-          <RoomItem
-            adult={1}
-            child={0}
-            onChange={(value) => {
-              console.log(value);
-            }}
+        <div
+          style={{
+            width: 400,
+            padding: 20,
+            margin: 20,
+            border: "3px dashed #ccc",
+          }}
+        >
+          <RoomAllocation
+            guest={10}
+            room={3}
+            onChange={(result) => console.log(result)}
           />
         </div>
         {/* <CustomInputNumber

@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import { Box } from "../ui_kit";
 import CustomInputNumber from "./CustomInputNumber";
 //最多4人
-const RoomItem = ({ adult, child, max = 4, onChange }) => {
+const RoomItem = ({ adult, child, max = 4, onChange, disabled }) => {
   const [_adult, setAdult] = useState(adult);
   const [_child, setCild] = useState(child);
 
-  useEffect(() => {
-    onChange({
-      adult: _adult,
-      child: _child,
-    });
-  }, [_adult, _child]);
+  //   useEffect(() => {
+  //     onChange({
+  //       adult: _adult,
+  //       child: _child,
+  //     });
+  //   }, [_adult, _child]);
 
   return (
     <Box
@@ -28,7 +28,7 @@ const RoomItem = ({ adult, child, max = 4, onChange }) => {
       <Box alignItems="center">
         <Box flexDirection="column">
           <span>大人</span>
-          <span>(20歲以上)</span>
+          <span style={{ color: "#ababab" }}>(20歲以上)</span>
         </Box>
         <CustomInputNumber
           min={1}
@@ -36,14 +36,17 @@ const RoomItem = ({ adult, child, max = 4, onChange }) => {
           step={1}
           name={"CustomInputNumber"}
           value={_adult}
-          disabled={false}
+          disabled={disabled}
           onChange={(Event) => {
-            console.log("onChange", Event.target.value);
-
+            // console.log("onChange", Event.target.value);
             setAdult(Number(Event.target.value));
+            onChange({
+              adult: Number(Event.target.value),
+              child: _child,
+            });
           }}
           onBlur={(Event) => {
-            console.log("onBlur", Event.target.name);
+            // console.log("onBlur", Event.target.name);
           }}
         />
       </Box>
@@ -57,9 +60,14 @@ const RoomItem = ({ adult, child, max = 4, onChange }) => {
           step={1}
           name={"CustomInputNumber"}
           value={child}
-          disabled={_adult == max}
+          disabled={_adult == max || disabled}
           onChange={(Event) => {
-            console.log("onChange", Event.target.value);
+            // console.log("onChange", Event.target.value);
+
+            onChange({
+              adult: _adult,
+              child: Number(Event.target.value),
+            });
             setCild(Number(Event.target.value));
           }}
           onBlur={(Event) => {

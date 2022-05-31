@@ -75,6 +75,9 @@ const CustomInputNumber = ({
             onChange(e);
         }}
         onBlur={(e) => {
+          if (Number(e.target.value) !== value) {
+            setValue(value);
+          }
           onBlur(e);
         }}
         disabled={disabled}
