@@ -4,16 +4,8 @@ import { Box } from "../ui_kit";
 import CustomInputNumber from "./CustomInputNumber";
 //最多4人
 const RoomItem = memo(({ adult, child, max = 4, onChange, disabled }) => {
-  console.log("RoomItem", adult, child, new Date());
   const [_adult, setAdult] = useState(adult);
   const [_child, setCild] = useState(child);
-
-  //   useEffect(() => {
-  //     onChange({
-  //       adult: _adult,
-  //       child: _child,
-  //     });
-  //   }, [_adult, _child]);
 
   return (
     <Box

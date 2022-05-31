@@ -5,7 +5,7 @@ export default function useLongPress(callback = () => {}, ms = 300, over) {
 
   useEffect(() => {
     let timerId;
-    if (startLongPress) {
+    if (startLongPress && !over) {
       timerId = setTimeout(callback, ms);
     } else {
       clearTimeout(timerId);
@@ -14,13 +14,7 @@ export default function useLongPress(callback = () => {}, ms = 300, over) {
     return () => {
       clearTimeout(timerId);
     };
-  }, [callback, ms, startLongPress]);
-
-  useEffect(() => {
-    if (over) {
-      stop();
-    }
-  }, [over]);
+  }, [callback, ms, startLongPress, over]);
 
   //   useCallback 才不會每次都呼叫
   const start = useCallback(() => {

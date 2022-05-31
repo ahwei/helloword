@@ -19,34 +19,34 @@ const CustomInputNumber = ({
   const onAdd = () => {
     setValue((pre) => {
       const nextValue = Number(pre) + step;
-
-      if (pre < max) {
+      const returnValue = nextValue >= max ? max : nextValue;
+      if (pre < max && nextValue !== pre) {
         onChange({
           target: {
-            value: String(nextValue),
+            value: String(returnValue),
             name,
           },
         });
       }
 
-      return nextValue >= max ? max : nextValue;
+      return returnValue;
     });
   };
 
   const onMinus = () => {
     setValue((pre) => {
       const nextValue = Number(pre) - step;
-
-      if (pre > min) {
+      const returnValue = nextValue <= min ? min : nextValue;
+      if (pre > min && nextValue !== pre) {
         onChange({
           target: {
-            value: String(nextValue),
+            value: String(returnValue),
             name,
           },
         });
       }
 
-      return nextValue <= min ? min : nextValue;
+      return returnValue;
     });
   };
 
@@ -85,7 +85,6 @@ const CustomInputNumber = ({
       <Button
         disabled={disabled || _value >= max}
         onClick={onAdd}
-        // {...addLongPress}
         {...addLongPress}
       >
         <IoIosAdd size={35} />

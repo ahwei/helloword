@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import RoomItem from "./RoomItem";
-import { Box } from "../ui_kit";
+import { Box, Info } from "../ui_kit";
 
 const getSum = (rooms) => {
   let sum = 0;
@@ -63,9 +63,9 @@ const RoomAllocation = ({ onChange, guest, room }) => {
         </h3>
       </Box>
 
-      <Box>
+      <Info>
         <h3>尚未分配：{guest - sum}人</h3>
-      </Box>
+      </Info>
       {rooms.map((item, index) => {
         return (
           <RoomItem

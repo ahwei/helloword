@@ -8,6 +8,7 @@ import { Container } from "./components/ui_kit";
 const theme = {
   primary: "#1E9FD2",
   primaryDisabled: "#9FD2E9",
+  primaryLight: "#f0fdff",
   secondary: "#BFBFBF",
 };
 

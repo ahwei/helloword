@@ -22,7 +22,7 @@ const Button = styled.button`
   }
   :hover {
     background-color: ${(props) =>
-      props.disabled ? "transparent" : "#f0fdff"};
+      props.disabled ? "transparent" : props.theme.primaryLight};
   }
 `;
 
