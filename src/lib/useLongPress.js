@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-export default function useLongPress(callback = () => {}, ms = 300, onStop) {
+export default function useLongPress(callback = () => {}, ms = 300, over) {
   const [startLongPress, setStartLongPress] = useState(false);
 
   useEffect(() => {
@@ -16,6 +16,12 @@ export default function useLongPress(callback = () => {}, ms = 300, onStop) {
     };
   }, [callback, ms, startLongPress]);
 
+  useEffect(() => {
+    if (over) {
+      stop();
+    }
+  }, [over]);
+
   //   useCallback 才不會每次都呼叫
   const start = useCallback(() => {
     setStartLongPress(true);
@@ -27,9 +33,9 @@ export default function useLongPress(callback = () => {}, ms = 300, onStop) {
 
   return {
     onMouseDown: start,
+    onTouchStart: start,
     onMouseUp: stop,
     onMouseLeave: stop,
-    onTouchStart: start,
     onTouchEnd: stop,
     onMouseOut: stop,
   };

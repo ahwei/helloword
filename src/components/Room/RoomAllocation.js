@@ -27,7 +27,10 @@ const RoomAllocation = ({ onChange, guest, room }) => {
 
     const sum = getSum(newRoom);
 
-    if (sum <= guest) setRooms(newRoom);
+    if (sum <= guest) {
+      setRooms(newRoom);
+      onChange(newRoom);
+    }
 
     // rooms[index] = newValue;
     // setSum(sum);

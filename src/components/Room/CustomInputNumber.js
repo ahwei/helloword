@@ -54,8 +54,8 @@ const CustomInputNumber = ({
     setValue(value);
   }, [value]);
 
-  const addLongPress = useLongPress(onAdd, 200);
-  const minusLongPress = useLongPress(onMinus, 200);
+  const addLongPress = useLongPress(onAdd, 150, _value >= max);
+  const minusLongPress = useLongPress(onMinus, 150, _value <= min);
 
   return (
     <Box alignItems="center" justifyContent="center">
@@ -85,6 +85,7 @@ const CustomInputNumber = ({
       <Button
         disabled={disabled || _value >= max}
         onClick={onAdd}
+        // {...addLongPress}
         {...addLongPress}
       >
         <IoIosAdd size={35} />
