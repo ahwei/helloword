@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
-import { Button, Input } from "../ui_kit";
+import { Button, Input, Box } from "../ui_kit";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import useLongPress from "../../lib/useLongPress";
 
@@ -58,15 +58,7 @@ const CustomInputNumber = ({
   const minusLongPress = useLongPress(onMinus, 100);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        borderBottom: "1px solid #000",
-      }}
-    >
+    <Box alignItems="center" justifyContent="center">
       <Button disabled={_value <= min} {...minusLongPress} onClick={onMinus}>
         <IoIosRemove size={35} />
       </Button>
@@ -94,7 +86,7 @@ const CustomInputNumber = ({
       >
         <IoIosAdd size={35} />
       </Button>
-    </div>
+    </Box>
   );
 };
 
