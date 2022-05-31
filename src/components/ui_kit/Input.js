@@ -10,6 +10,10 @@ const Input = styled.input`
   padding: 0;
   text-align: center;
   font-size: 16px;
+  :disabled {
+    border: 1px solid #fefefe;
+    color: 1px solid #fefefe;
+  }
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;

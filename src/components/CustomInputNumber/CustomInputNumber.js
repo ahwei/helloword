@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Button, Input } from "../ui_kit";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
-import { useLongPress, LongPressDetectEvents } from "use-long-press";
+import useLongPress from "../../lib/useLongPress";
 
 const CustomInputNumber = ({
   value,
@@ -15,7 +15,6 @@ const CustomInputNumber = ({
   name,
 }) => {
   const [_value, setValue] = useState(0);
-  const intervalRef = useRef(null);
 
   const onAdd = () => {
     setValue((pre) => {
@@ -38,38 +37,25 @@ const CustomInputNumber = ({
     setValue((pre) => {
       const nextValue = Number(pre) - step;
 
+      if (pre > min) {
+        onChange({
+          target: {
+            value: String(nextValue),
+            name,
+          },
+        });
+      }
+
       return nextValue <= min ? min : nextValue;
     });
   };
 
-  const startCounter = (fun) => {
-    if (intervalRef.current) return;
-    intervalRef.current = setInterval(() => {
-      fun();
-    }, 150);
-  };
-
-  const stopCounter = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
-
-  const bind = useLongPress(onAdd, {
-    onStart: () => console.log("Press started"),
-    onFinish: () => console.log("Long press finished"),
-    onCancel: () => console.log("Press cancelled"),
-    // onMove: () => console.log("Detected mouse or touch movement"),
-    threshold: 500,
-    captureEvent: true,
-    cancelOnMovement: false,
-    detect: LongPressDetectEvents.BOTH,
-  });
-
   React.useEffect(() => {
     setValue(value);
   }, [value]);
+
+  const addLongPress = useLongPress(onAdd, 100);
+  const minusLongPress = useLongPress(onMinus, 100);
 
   return (
     <div
@@ -81,13 +67,7 @@ const CustomInputNumber = ({
         borderBottom: "1px solid #000",
       }}
     >
-      <Button
-        disabled={_value <= min}
-        // onMouseDown={() => startCounter(onMinus)}
-        // onMouseUp={stopCounter}
-        // onMouseLeave={stopCounter}
-        onClick={onMinus}
-      >
+      <Button disabled={_value <= min} {...minusLongPress} onClick={onMinus}>
         <IoIosRemove size={35} />
       </Button>
       <Input
@@ -109,10 +89,8 @@ const CustomInputNumber = ({
       />
       <Button
         disabled={disabled || _value >= max}
-        // onMouseDown={() => startCounter(onAdd)}
-        // onMouseUp={stopCounter}
-        // onMouseLeave={stopCounter}
         onClick={onAdd}
+        {...addLongPress}
       >
         <IoIosAdd size={35} />
       </Button>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
 import CustomInputNumber from "./components/CustomInputNumber";
+import RoomItem from "./components/Room/RoomItem";
 import { Container } from "./components/ui_kit";
 
 const theme = {
@@ -30,6 +31,7 @@ const App = (props) => {
             console.log("onBlur", Event.target.name);
           }}
         />
+        <RoomItem adult={1} child={0} />
       </Container>
     </ThemeProvider>
   );
