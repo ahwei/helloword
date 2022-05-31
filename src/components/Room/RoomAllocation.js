@@ -74,6 +74,7 @@ const RoomAllocation = ({ onChange, guest, room }) => {
               onChageRoom(value, index);
             }}
             key={index}
+            disabled={sum >= guest}
           />
         );
       })}
