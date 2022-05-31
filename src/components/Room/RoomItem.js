@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import PropTypes from "prop-types";
 import { Box } from "../ui_kit";
 import CustomInputNumber from "./CustomInputNumber";
 //最多4人
-const RoomItem = ({ adult, child, max = 4, onChange, disabled }) => {
+const RoomItem = memo(({ adult, child, max = 4, onChange, disabled }) => {
+  console.log("RoomItem", adult, child, new Date());
   const [_adult, setAdult] = useState(adult);
   const [_child, setCild] = useState(child);
 
@@ -77,7 +78,7 @@ const RoomItem = ({ adult, child, max = 4, onChange, disabled }) => {
       </Box>
     </Box>
   );
-};
+});
 
 RoomItem.propTypes = {};
 

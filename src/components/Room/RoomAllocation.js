@@ -14,14 +14,7 @@ const getSum = (rooms) => {
 
 const RoomAllocation = ({ onChange, guest, room }) => {
   const [rooms, setRooms] = useState([]);
-
-  const sum = useMemo(() => {
-    if (rooms.length > 0) {
-      return getSum(rooms);
-    }
-
-    return 0;
-  }, [rooms]);
+  //   const [sum, setSum] = useState(0);
 
   const onChageRoom = (newValue, index) => {
     const newRoom = rooms.map((item, i) => {
@@ -31,17 +24,14 @@ const RoomAllocation = ({ onChange, guest, room }) => {
         return item;
       }
     });
-    setRooms(newRoom);
 
-    // const sum = getSum(newRoom);
-    // console.log(sum);
+    const sum = getSum(newRoom);
+
+    if (sum <= guest) setRooms(newRoom);
 
     // rooms[index] = newValue;
-
-    // onChange(newRoom);
+    // setSum(sum);
   };
-
-  console.log(sum);
 
   //builddata
   useEffect(() => {
@@ -53,6 +43,14 @@ const RoomAllocation = ({ onChange, guest, room }) => {
 
     setRooms(pushRoomData);
   }, [room]);
+
+  const sum = useMemo(() => {
+    if (rooms.length > 0) {
+      return getSum(rooms);
+    }
+
+    return 0;
+  }, [rooms]);
 
   return (
     <Box flexDirection="column">
@@ -73,7 +71,7 @@ const RoomAllocation = ({ onChange, guest, room }) => {
             onChange={(value) => {
               onChageRoom(value, index);
             }}
-            key={index}
+            key={String(index)}
             disabled={sum >= guest}
           />
         );
