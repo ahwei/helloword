@@ -28,7 +28,7 @@ module.exports = {
   entry: ["react-hot-loader/patch", "babel-polyfill", "./src/index.js"],
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "./", // "./" ->loacl可以用  "/" -> server 使用
+    publicPath: "/",
     filename: `build-[contenthash].js`,
   },
   module: {
