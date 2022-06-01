@@ -19,6 +19,7 @@ const App = (props) => {
         <div
           style={{
             maxWidth: 400,
+            width: "80%",
             padding: 20,
             margin: 20,
             border: "3px dashed #ccc",
