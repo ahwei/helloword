@@ -28,12 +28,9 @@ const RoomAllocation = ({ onChange, guest, room }) => {
     const sum = getSum(newRoom);
 
     if (sum <= guest) {
-      setRooms(newRoom);
+      setRooms([...newRoom]);
       onChange(newRoom);
     }
-
-    // rooms[index] = newValue;
-    // setSum(sum);
   };
 
   //builddata
@@ -76,6 +73,7 @@ const RoomAllocation = ({ onChange, guest, room }) => {
             }}
             key={String(index)}
             disabled={sum >= guest}
+            // max={guest - sum > 4 ? 4 : guest - sum}
           />
         );
       })}

@@ -1,4 +1,10 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import PropTypes from "prop-types";
 import { Button, Input, Box } from "../ui_kit";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
@@ -14,48 +20,47 @@ const CustomInputNumber = ({
   disabled,
   name,
 }) => {
-  const [_value, setValue] = useState(0);
+  const [_value, setValue] = useState(value);
+  const [firstTimeLoad, setFirestTimeLoad] = useState(false);
 
-  const onAdd = () => {
-    setValue((pre) => {
-      const nextValue = Number(pre) + step;
-      const returnValue = nextValue >= max ? max : nextValue;
-      if (pre < max && nextValue !== pre) {
-        onChange({
-          target: {
-            value: String(returnValue),
-            name,
-          },
-        });
-      }
+  const onAdd = useCallback(() => {
+    if (!disabled)
+      //假設已經滿了 longpress需要暫停
+      setValue((pre) => {
+        const nextValue = Number(pre) + step;
+        const returnValue = nextValue >= max ? max : nextValue; //不超過最大值
 
-      return returnValue;
-    });
-  };
+        return returnValue;
+      });
+  }, [_value, disabled]);
 
-  const onMinus = () => {
+  const onMinus = useCallback(() => {
     setValue((pre) => {
       const nextValue = Number(pre) - step;
-      const returnValue = nextValue <= min ? min : nextValue;
-      if (pre > min && nextValue !== pre) {
+      const returnValue = nextValue <= min ? min : nextValue; //不低於最小值
+
+      return returnValue;
+    });
+  }, [_value, disabled]);
+
+  useEffect(() => {
+    if (!firstTimeLoad) {
+      //第一次載入不執行
+      setFirestTimeLoad(true);
+    } else {
+      if (_value >= min && _value <= max) {
         onChange({
           target: {
-            value: String(returnValue),
+            value: String(_value),
             name,
           },
         });
       }
+    }
+  }, [_value]);
 
-      return returnValue;
-    });
-  };
-
-  React.useEffect(() => {
-    setValue(value);
-  }, [value]);
-
-  const addLongPress = useLongPress(onAdd, 150, _value >= max);
-  const minusLongPress = useLongPress(onMinus, 150, _value <= min);
+  const addLongPress = useLongPress(onAdd, 150);
+  const minusLongPress = useLongPress(onMinus, 150);
 
   return (
     <Box alignItems="center" justifyContent="center">
@@ -75,6 +80,7 @@ const CustomInputNumber = ({
             onChange(e);
         }}
         onBlur={(e) => {
+          //離開時資料沒更新 變回原形
           if (Number(e.target.value) !== value) {
             setValue(value);
           }

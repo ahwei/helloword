@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-export default function useLongPress(callback = () => {}, ms = 300, over) {
+export default function useLongPress(callback = () => {}, ms = 300) {
   const [startLongPress, setStartLongPress] = useState(false);
 
   useEffect(() => {
     let timerId;
-    if (startLongPress && !over) {
+
+    if (startLongPress) {
       timerId = setTimeout(callback, ms);
     } else {
       clearTimeout(timerId);
@@ -14,7 +15,7 @@ export default function useLongPress(callback = () => {}, ms = 300, over) {
     return () => {
       clearTimeout(timerId);
     };
-  }, [callback, ms, startLongPress, over]);
+  }, [callback, ms, startLongPress]);
 
   //   useCallback 才不會每次都呼叫
   const start = useCallback(() => {
