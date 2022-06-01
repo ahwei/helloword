@@ -28,13 +28,13 @@ module.exports = {
   entry: ["react-hot-loader/patch", "babel-polyfill", "./src/index.js"],
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
+    publicPath: "./", // "./" ->loacl可以用  "/" -> server 使用
     filename: `build-[contenthash].js`,
   },
   module: {
     rules: [
       { test: /\.(js|jsx)$/, exclude: /node_modules/, use: ["babel-loader"] },
-      // {
+      // { //有使用ts再啟動
       //   test: /\.(ts|tsx)?$/,
       //   use: ["babel-loader", "ts-loader"],
       //   exclude: /node_modules/,

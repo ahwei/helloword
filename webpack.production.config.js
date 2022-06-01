@@ -10,6 +10,6 @@ module.exports = merge(config, {
         NODE_ENV: JSON.stringify("production"),
       },
     }),
-    new CopyPlugin([{ from: "public", to: "public" }]),
+    new CopyPlugin({ patterns: [{ from: "public", to: "public" }] }),
   ],
 });
