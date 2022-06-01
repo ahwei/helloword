@@ -52,6 +52,18 @@ const RoomAllocation = ({ onChange, guest, room }) => {
     return 0;
   }, [rooms]);
 
+  const error = useMemo(() => {
+    if (room > guest) {
+      return "住客人數不能小於房間數";
+    }
+
+    if (room * 4 < guest) {
+      return "房間數量無法容納住客人數";
+    }
+
+    return false;
+  }, [room, guest]);
+
   return (
     <Box flexDirection="column">
       <Box>
@@ -63,20 +75,24 @@ const RoomAllocation = ({ onChange, guest, room }) => {
       <Info>
         <h3>尚未分配：{guest - sum}人</h3>
       </Info>
-      {rooms.map((item, index) => {
-        return (
-          <RoomItem
-            adult={item.adult}
-            child={item.child}
-            onChange={(value) => {
-              onChageRoom(value, index);
-            }}
-            key={String(index)}
-            disabled={sum >= guest}
-            // max={guest - sum > 4 ? 4 : guest - sum}
-          />
-        );
-      })}
+
+      {error && <Info style={{ marginTop: 10 }}>{error}</Info>}
+
+      {!error &&
+        rooms.map((item, index) => {
+          return (
+            <RoomItem
+              adult={item.adult}
+              child={item.child}
+              onChange={(value) => {
+                onChageRoom(value, index);
+              }}
+              key={String(index)}
+              disabled={sum >= guest}
+              // max={guest - sum > 4 ? 4 : guest - sum}
+            />
+          );
+        })}
     </Box>
   );
 };

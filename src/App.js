@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
-// import CustomInputNumber from "./components/CustomInputNumber";
+import CustomInputNumber from "./components/Room/CustomInputNumber";
 import RoomAllocation from "./components/Room/RoomAllocation";
 import { Container } from "./components/ui_kit";
 
@@ -13,22 +13,20 @@ const theme = {
 };
 
 const App = (props) => {
-  const [value, setValue] = useState(1);
-
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <div
           style={{
-            width: 400,
+            maxWidth: 400,
             padding: 20,
             margin: 20,
             border: "3px dashed #ccc",
           }}
         >
           <RoomAllocation
-            guest={10}
-            room={3}
+            guest={35}
+            room={9}
             onChange={(result) => console.log(result)}
           />
         </div>
