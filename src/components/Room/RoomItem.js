@@ -29,7 +29,7 @@ const RoomItem = memo(({ adult, child, max = 4, onChange, disabled }) => {
           step={1}
           name={"CustomInputNumber"}
           value={_adult}
-          disabled={disabled}
+          disabled={_adult + _child == max || disabled}
           onChange={(Event) => {
             // console.log("onChange", Event.target.value);
             setAdult(Number(Event.target.value));
@@ -53,7 +53,7 @@ const RoomItem = memo(({ adult, child, max = 4, onChange, disabled }) => {
           step={1}
           name={"CustomInputNumber"}
           value={child}
-          disabled={_adult == max || disabled}
+          disabled={_adult + _child == max || disabled}
           onChange={(Event) => {
             // console.log("onChange", Event.target.value);
 
