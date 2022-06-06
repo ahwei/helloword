@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useTransition } from "react";
 
 export default function useLongPress(callback = () => {}, ms = 300) {
   const [startLongPress, setStartLongPress] = useState(false);
 
+  const [isPending, startTransition] = useTransition({
+    timeoutMs: ms,
+  });
+
   useEffect(() => {
     let timerId;
 
-    if (startLongPress) {
+    if (startLongPress && !isPending) {
       timerId = setTimeout(callback, ms);
     } else {
       clearTimeout(timerId);
@@ -15,11 +19,13 @@ export default function useLongPress(callback = () => {}, ms = 300) {
     return () => {
       clearTimeout(timerId);
     };
-  }, [callback, ms, startLongPress]);
+  }, [callback, ms, startLongPress, isPending]);
 
   //   useCallback 才不會每次都呼叫
   const start = useCallback(() => {
-    setStartLongPress(true);
+    startTransition(() => {
+      setStartLongPress(true);
+    });
   }, []);
 
   const stop = useCallback(() => {
