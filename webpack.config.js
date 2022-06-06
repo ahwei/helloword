@@ -30,6 +30,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
     filename: `build-[contenthash].js`,
+    clean: true,
   },
   module: {
     rules: [
