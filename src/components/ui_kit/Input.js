@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Input = styled.input`
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   margin: 8px;
   border-radius: 4px;
   border: 1px solid ${(props) => props.theme.secondary};
@@ -10,6 +10,7 @@ const Input = styled.input`
   padding: 0;
   text-align: center;
   font-size: 16px;
+  box-sizing: border-box;
   :disabled {
     border: 1px solid #dedede;
     color: 1px solid #dedede;
